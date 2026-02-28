@@ -63,3 +63,4 @@ jobs:
           target: /var/www/www.kladnitsky.ru/
           rm: false
           overwrite: true
+          strip_components: 2
