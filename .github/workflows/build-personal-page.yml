@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
+    environment: production
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -16,6 +17,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: www/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('www/package-lock.json') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
