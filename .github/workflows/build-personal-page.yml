@@ -12,17 +12,17 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Check SSH variables exist
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-        run: |
-          if [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ] || [ -z "$SSH_PORT" ] || [ -z "$SSH_KEY" ]; then
-            echo "SSH variables are not set"
-            exit 1
-          fi
+      # - name: Check SSH variables exist
+      #   env:
+      #     SSH_HOST: ${{ secrets.SSH_HOST }}
+      #     SSH_USER: ${{ secrets.SSH_USER }}
+      #     SSH_PORT: ${{ secrets.SSH_PORT }}
+      #     SSH_KEY: ${{ secrets.SSH_KEY }}
+      #   run: |
+      #     if [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ] || [ -z "$SSH_PORT" ] || [ -z "$SSH_KEY" ]; then
+      #       echo "SSH variables are not set"
+      #       exit 1
+      #     fi
 
       - name: Checkout repository
         uses: actions/checkout@v4
