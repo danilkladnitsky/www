@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    defaults:
-      run:
-        working-directory: www
     steps:
       - name: Debug SSH auth
         env:
@@ -27,7 +24,7 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/id_key
           chmod 600 ~/.ssh/id_key
           ssh -vvv -i ~/.ssh/id_key -p "$SSH_PORT" -o StrictHostKeyChecking=no "$SSH_USER@$SSH_HOST" "echo SSH_OK"
-          
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
