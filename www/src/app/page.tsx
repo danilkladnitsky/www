@@ -8,7 +8,7 @@ export default function Home() {
   console.info("linkedin: https://www.linkedin.com/in/danilkladnitsky/");
 
   const handleClick = () => {
-    window.open("https://www.linkedin.com/in/danilkladnitsky/", "_blank");
+    // window.open("https://www.linkedin.com/in/danilkladnitsky/", "_blank");
   }
 
   return (
