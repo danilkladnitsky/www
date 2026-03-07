@@ -1,0 +1,34 @@
+name: Update Nginx Configuration
+
+on:
+  push:
+    paths:
+      - nginx.conf
+    branches:
+      - main
+
+jobs:
+  update-nginx:
+    name: Update Nginx Configuration
+    environment: production
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload Nginx configuration to server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "nginx.conf"
+          target: /etc/nginx/sites-available/default
+          rm: true
+          overwrite: true
