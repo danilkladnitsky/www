@@ -1,0 +1,66 @@
+name: Build and Deploy Blog Page
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Blog Page
+    environment: production
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: blog
+    steps:
+      # - name: Check SSH variables exist
+      #   env:
+      #     SSH_HOST: ${{ secrets.SSH_HOST }}
+      #     SSH_USER: ${{ secrets.SSH_USER }}
+      #     SSH_PORT: ${{ secrets.SSH_PORT }}
+      #     SSH_KEY: ${{ secrets.SSH_KEY }}
+      #   run: |
+      #     if [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ] || [ -z "$SSH_PORT" ] || [ -z "$SSH_KEY" ]; then
+      #       echo "SSH variables are not set"
+      #       exit 1
+      #     fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: blog/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('blog/package-lock.json') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: blog/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Upload build to server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "blog/out/*"
+          target: /var/www/blog.kladnitsky.ru/
+          rm: false
+          overwrite: true
+          strip_components: 2
