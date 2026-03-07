@@ -5,6 +5,9 @@ import { NextConfig } from 'next'
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   output: 'export',
+  images: {
+    unoptimized: true,
+  }
 }
  
 const withMDX = createMDX({

@@ -3,13 +3,13 @@
 
 @theme {
   /* Your palette – use with bg-background, text-foreground, text-muted */
-  --color-background: #161616;
+  --color-background: #000000;
   --color-foreground: #ededed;
   --color-muted: #a0a0a0;
 }
 
 :root {
-  --background: #161616;
+  --background: #000000;
   --foreground: #ededed;
   --muted: #a0a0a0;
 }

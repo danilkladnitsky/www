@@ -26,7 +26,7 @@ export async function generateMetadata({
   const filePath = path.join(ARTICLES_DIR, `${slug}.mdx`);
   const { data } = await readMarkdownFile(filePath);
   return {
-    title: data.title,
+    title: data.title + " | Блог Данила Кладницкого",
     description: data.description,
     openGraph: { title: data.title, description: data.description },
   };
