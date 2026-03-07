@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - nginx.conf
+      - .github/workflows/update-nginx.yml
     branches:
       - main
 
