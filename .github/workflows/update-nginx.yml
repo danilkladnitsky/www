@@ -41,5 +41,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: |
-            echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S sh -c "nginx -t && systemctl reload nginx"
+          script: sudo nginx -t && sudo systemctl reload nginx
