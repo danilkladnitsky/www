@@ -2,6 +2,8 @@ name: Build and Deploy Personal Page
 
 on:
   push:
+    paths:
+      - www/**
     branches:
       - main
 
