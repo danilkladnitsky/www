@@ -34,12 +34,12 @@ jobs:
           rm: true
           overwrite: true
 
-      # - name: Test config and reload Nginx (makes new config active)
-      #   uses: appleboy/ssh-action@v1.0.3
-      #   with:
-      #     host: ${{ secrets.SSH_HOST }}
-      #     username: ${{ secrets.SSH_USERNAME }}
-      #     key: ${{ secrets.SSH_KEY }}
-      #     port: ${{ secrets.SSH_PORT }}
-      #     script: |
-      #       sudo nginx -t && sudo systemctl reload nginx
+      - name: Test config and reload Nginx (makes new config active)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            sudo nginx -t && sudo systemctl reload nginx
